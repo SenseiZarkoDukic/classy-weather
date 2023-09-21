@@ -4,7 +4,14 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = { location: "lisbon" };
+    // this.fetchWeather = this.fetchWeather.bind(this); I don't need this line because I'm using arrow functions
   }
+
+  fetchWeather = () => {
+    console.log("Loading data");
+    console.log(this);
+  };
+
   render() {
     return (
       <div className="app">
@@ -17,7 +24,7 @@ class App extends React.Component {
             onChange={(e) => this.setState({ location: e.target.value })}
           />
         </div>
-        <button>Get Weather</button>
+        <button onClick={this.fetchWeather}>Get Weather</button>
       </div>
     );
   }
