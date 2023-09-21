@@ -41,10 +41,10 @@ class App extends React.Component {
       displayLocation: "",
       weather: {},
     };
-    this.fetchWeather = this.fetchWeather.bind(this);
+    // this.fetchWeather = this.fetchWeather.bind(this);
   }
 
-  async fetchWeather() {
+  fetchWeather = async () => {
     try {
       this.setState({ isLoading: true });
 
@@ -74,7 +74,7 @@ class App extends React.Component {
     } finally {
       this.setState({ isLoading: false });
     }
-  }
+  };
 
   render() {
     return (
