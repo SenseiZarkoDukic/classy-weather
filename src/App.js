@@ -35,7 +35,12 @@ function formatDay(dateStr) {
 class App extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { location: "lisbon", isLoading: false };
+    this.state = {
+      location: "lisbon",
+      isLoading: false,
+      displayLocation: "",
+      weather: {},
+    };
     this.fetchWeather = this.fetchWeather.bind(this);
   }
 
@@ -54,14 +59,16 @@ class App extends React.Component {
 
       const { latitude, longitude, timezone, name, country_code } =
         geoData.results.at(0);
-      console.log(`${name} ${convertToFlag(country_code)}`);
+      this.setState({
+        displayLocation: `${name} ${convertToFlag(country_code)}`,
+      });
 
       // 2) Getting actual weather
       const weatherRes = await fetch(
         `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&timezone=${timezone}&daily=weathercode,temperature_2m_max,temperature_2m_min`
       );
       const weatherData = await weatherRes.json();
-      console.log(weatherData.daily);
+      this.setState({ weather: weatherData.daily });
     } catch (err) {
       console.err(err);
     } finally {
@@ -81,6 +88,7 @@ class App extends React.Component {
             onChange={(e) => this.setState({ location: e.target.value })}
           />
         </div>
+        <p>{this.state.displayLocation}</p>
         <button onClick={this.fetchWeather}>Get Weather</button>
         {this.state.isLoading && <p className="loader">Loading...</p>}
       </div>
