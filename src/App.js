@@ -39,7 +39,6 @@ class App extends React.Component {
     displayLocation: "",
     weather: {},
   };
-  // this.fetchWeather = this.fetchWeather.bind(this);
 
   fetchWeather = async () => {
     try {
@@ -74,6 +73,14 @@ class App extends React.Component {
   };
 
   setLocation = (e) => this.setState({ location: e.target.value });
+
+  // useEffect []
+  componentDidMount = () => this.fetchWeather();
+
+  // useEffect [location]
+  componentDidUpdate = (prevProps, prevState) => {
+    if (this.state.location !== prevState.location) this.fetchWeather();
+  };
 
   render() {
     return (
