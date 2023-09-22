@@ -41,6 +41,8 @@ class App extends React.Component {
   };
 
   fetchWeather = async () => {
+    if (this.state.location.length < 2) return;
+
     try {
       this.setState({ isLoading: true });
 
@@ -75,7 +77,8 @@ class App extends React.Component {
   setLocation = (e) => this.setState({ location: e.target.value });
 
   // useEffect []
-  componentDidMount = () => this.fetchWeather();
+  componentDidMount = () => {};
+  // this.fetchWeather();
 
   // useEffect [location]
   componentDidUpdate = (prevProps, prevState) => {
